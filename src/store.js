@@ -22,5 +22,6 @@ export const actions = {
   move(id, from, to){ const s=getState(); s.lists[from]=s.lists[from].filter(x=>x!==id); if(!s.lists[to].includes(id)) s.lists[to].push(id); state=s; save(s); emit(); },
   removeFrom(list, id){ const s=getState(); s.lists[list]=s.lists[list].filter(x=>x!==id); state=s; save(s); emit(); },
   setProgress(id, ep){ const s=getState(); s.progress[id]=ep; state=s; save(s); emit(); },
-  setLangPref(pref){ const s=getState(); s.profile.langPref=pref; state=s; save(s); emit(); }
+  setLangPref(pref){ const s=getState(); s.profile.langPref=pref; state=s; save(s); emit(); },
+  setUsername(name){ const s=getState(); s.profile.username=name; state=s; save(s); emit(); }
 };
