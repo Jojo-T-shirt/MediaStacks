@@ -29,8 +29,8 @@ export async function render(){
   root.innerHTML = `
     <h2>Mon profil</h2>
     <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:.5rem 0 1rem">
-      <div class="badge">Pseudo: <strong id="pseudo">Invité</strong></div>
-      <label>Préférence audio: 
+      <label>Pseudo: <input id="pseudo" style="width:120px"/></label>
+      <label>Préférence audio:
         <select id="lang">
           <option>VOSTFR</option>
           <option>VF</option>
@@ -44,7 +44,7 @@ export async function render(){
 
   function paint(){
     const s = getState();
-    root.querySelector('#pseudo').textContent = s.profile.username;
+    root.querySelector('#pseudo').value = s.profile.username;
     root.querySelector('#lang').value = s.profile.langPref;
     const stats = root.querySelector('#stats');
     const total = ['toWatch','inProgress','finished'].reduce((n,k)=>n+s.lists[k].length,0);
@@ -58,6 +58,7 @@ export async function render(){
   }
 
   root.querySelector('#lang').addEventListener('change', (e)=>actions.setLangPref(e.target.value));
+  root.querySelector('#pseudo').addEventListener('input', (e)=>actions.setUsername(e.target.value));
   paint();
   const unsub = subscribe(paint);
   root.addEventListener('remove', unsub, { once:true });
